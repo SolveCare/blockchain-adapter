@@ -1,0 +1,37 @@
+
+syntax = "proto3";
+package main;
+
+option java_package = "care.solve.blockchain.entity.proto";
+option java_outer_classname = "BlockchainProtos";
+
+option go_package = "main";
+
+enum Functions {
+    GET_EVENT = 0;
+    SAVE_EVENT = 1;
+}
+
+enum EventStatus {
+    SUCCESSFUL = 0;
+    FAILED = 1;
+    IN_PROGRESS = 2;
+}
+
+enum EventType {
+    CREATE = 0;
+    RETRIEVE = 1;
+    UPDATE = 2;
+    DELETE = 3;
+}
+
+message Event {
+    string id = 1;
+    string sourceId = 2;
+    string targetId = 3;
+    string payloadId = 4;
+    string payloadHash = 5;
+    uint64 timestamp = 6;
+    EventType eventType = 7;
+    EventStatus eventStatus = 8;
+}

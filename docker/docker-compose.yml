@@ -1,0 +1,22 @@
+version: '2'
+
+networks:
+  net_basic:
+    external: true
+
+volumes:
+    pgdata:
+      driver: local
+
+services:
+  blockchain-adapter:
+    image: "blockchain-adapter"
+    ports:
+      - "9001:9001"
+      - "5005:5005"
+    networks:
+      - net_basic
+    volumes:
+      - ../src/main/resources/hyperledger/network/:/config/
+    environment:
+      - _JAVA_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
