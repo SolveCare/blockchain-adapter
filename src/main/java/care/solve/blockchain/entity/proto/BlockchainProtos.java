@@ -445,6 +445,9 @@ public final class BlockchainProtos {
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1634,7 +1637,7 @@ public final class BlockchainProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Event(input, extensionRegistry);
+        return new Event(input, extensionRegistry);
       }
     };
 
@@ -1676,7 +1679,7 @@ public final class BlockchainProtos {
       "\tGET_EVENT\020\000\022\016\n\nSAVE_EVENT\020\001*:\n\013EventSta" +
       "tus\022\016\n\nSUCCESSFUL\020\000\022\n\n\006FAILED\020\001\022\017\n\013IN_PR" +
       "OGRESS\020\002*=\n\tEventType\022\n\n\006CREATE\020\000\022\014\n\010RET" +
-      "RIEVE\020\001\022\n\n\006UPDATE\020\002\022\n\n\006DELETE\020\003B<\n\"care.",
+      "RIEVE\020\001\022\n\n\006UPDATE\020\002\022\n\n\006DELETE\020\003B<\n\"care." +
       "solve.blockchain.entity.protoB\020Blockchai" +
       "nProtosZ\004mainb\006proto3"
     };

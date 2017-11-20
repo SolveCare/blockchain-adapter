@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/events")
@@ -36,6 +37,8 @@ public class EventController {
 
     @PostMapping
     public ResponseEntity<Map<String, String>> publishEvent(@RequestBody Event event) {
+        event.setId(UUID.randomUUID().toString());
+
         BlockchainProtos.Event eventProto = eventToProtoTransformer.transformToProto(event);
         String printToString = TextFormat.printToString(eventProto);
         BlockEvent.TransactionEvent transactionEvent = transactionService.sendInvokeTransaction(
