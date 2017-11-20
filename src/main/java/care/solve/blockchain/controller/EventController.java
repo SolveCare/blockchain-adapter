@@ -41,24 +41,24 @@ public class EventController {
 
         BlockchainProtos.Event eventProto = eventToProtoTransformer.transformToProto(event);
         String printToString = TextFormat.printToString(eventProto);
-        BlockEvent.TransactionEvent transactionEvent = transactionService.sendInvokeTransaction(
+        byte[] responseBytes = transactionService.sendInvokeTransaction(
                 BlockchainProtos.Functions.SAVE_EVENT.name(),
                 new String[]{printToString}
         );
 
-        String respMsg = new String(transactionEvent.getTransactionActionInfo(0).getProposalResponsePayload());
+        String respMsg = new String(responseBytes);
 
         return ResponseEntity.ok(ImmutableMap.of("ResponseMessage", respMsg));
     }
 
     @GetMapping("{eventId}")
     public Event getEvent(@PathVariable String eventId) throws InvalidProtocolBufferException {
-        ByteString byteString = transactionService.sendQueryTransaction(
+        byte[] responseBytes = transactionService.sendQueryTransaction(
                 BlockchainProtos.Functions.GET_EVENT.name(),
                 new String[]{eventId}
         );
 
-        BlockchainProtos.Event eventProto = BlockchainProtos.Event.parseFrom(byteString);
+        BlockchainProtos.Event eventProto = BlockchainProtos.Event.parseFrom(responseBytes);
         return eventToProtoTransformer.transformFromProto(eventProto);
     }
 }
