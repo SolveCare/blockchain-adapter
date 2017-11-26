@@ -27,6 +27,14 @@ public final class BlockchainProtos {
      * <code>SAVE_EVENT = 1;</code>
      */
     SAVE_EVENT(1),
+    /**
+     * <code>GET_USER_PROFILE = 2;</code>
+     */
+    GET_USER_PROFILE(2),
+    /**
+     * <code>SAVE_USER_PROFILE = 3;</code>
+     */
+    SAVE_USER_PROFILE(3),
     UNRECOGNIZED(-1),
     ;
 
@@ -38,6 +46,14 @@ public final class BlockchainProtos {
      * <code>SAVE_EVENT = 1;</code>
      */
     public static final int SAVE_EVENT_VALUE = 1;
+    /**
+     * <code>GET_USER_PROFILE = 2;</code>
+     */
+    public static final int GET_USER_PROFILE_VALUE = 2;
+    /**
+     * <code>SAVE_USER_PROFILE = 3;</code>
+     */
+    public static final int SAVE_USER_PROFILE_VALUE = 3;
 
 
     public final int getNumber() {
@@ -60,6 +76,8 @@ public final class BlockchainProtos {
       switch (value) {
         case 0: return GET_EVENT;
         case 1: return SAVE_EVENT;
+        case 2: return GET_USER_PROFILE;
+        case 3: return SAVE_USER_PROFILE;
         default: return null;
       }
     }
@@ -1656,11 +1674,678 @@ public final class BlockchainProtos {
 
   }
 
+  public interface UserProfileOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:main.UserProfile)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string userId = 1;</code>
+     */
+    java.lang.String getUserId();
+    /**
+     * <code>string userId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getUserIdBytes();
+
+    /**
+     * <code>string encryptedProfileData = 2;</code>
+     */
+    java.lang.String getEncryptedProfileData();
+    /**
+     * <code>string encryptedProfileData = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getEncryptedProfileDataBytes();
+  }
+  /**
+   * Protobuf type {@code main.UserProfile}
+   */
+  public  static final class UserProfile extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:main.UserProfile)
+      UserProfileOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UserProfile.newBuilder() to construct.
+    private UserProfile(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UserProfile() {
+      userId_ = "";
+      encryptedProfileData_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UserProfile(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              userId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              encryptedProfileData_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_UserProfile_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_UserProfile_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.class, care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.Builder.class);
+    }
+
+    public static final int USERID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object userId_;
+    /**
+     * <code>string userId = 1;</code>
+     */
+    public java.lang.String getUserId() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string userId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUserIdBytes() {
+      java.lang.Object ref = userId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ENCRYPTEDPROFILEDATA_FIELD_NUMBER = 2;
+    private volatile java.lang.Object encryptedProfileData_;
+    /**
+     * <code>string encryptedProfileData = 2;</code>
+     */
+    public java.lang.String getEncryptedProfileData() {
+      java.lang.Object ref = encryptedProfileData_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        encryptedProfileData_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string encryptedProfileData = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEncryptedProfileDataBytes() {
+      java.lang.Object ref = encryptedProfileData_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        encryptedProfileData_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getUserIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
+      }
+      if (!getEncryptedProfileDataBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, encryptedProfileData_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getUserIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
+      }
+      if (!getEncryptedProfileDataBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, encryptedProfileData_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile)) {
+        return super.equals(obj);
+      }
+      care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile other = (care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile) obj;
+
+      boolean result = true;
+      result = result && getUserId()
+          .equals(other.getUserId());
+      result = result && getEncryptedProfileData()
+          .equals(other.getEncryptedProfileData());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + USERID_FIELD_NUMBER;
+      hash = (53 * hash) + getUserId().hashCode();
+      hash = (37 * hash) + ENCRYPTEDPROFILEDATA_FIELD_NUMBER;
+      hash = (53 * hash) + getEncryptedProfileData().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code main.UserProfile}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:main.UserProfile)
+        care.solve.blockchain.entity.proto.BlockchainProtos.UserProfileOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_UserProfile_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_UserProfile_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.class, care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.Builder.class);
+      }
+
+      // Construct using care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        userId_ = "";
+
+        encryptedProfileData_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_UserProfile_descriptor;
+      }
+
+      public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstanceForType() {
+        return care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.getDefaultInstance();
+      }
+
+      public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile build() {
+        care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile buildPartial() {
+        care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile result = new care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile(this);
+        result.userId_ = userId_;
+        result.encryptedProfileData_ = encryptedProfileData_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile) {
+          return mergeFrom((care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile other) {
+        if (other == care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile.getDefaultInstance()) return this;
+        if (!other.getUserId().isEmpty()) {
+          userId_ = other.userId_;
+          onChanged();
+        }
+        if (!other.getEncryptedProfileData().isEmpty()) {
+          encryptedProfileData_ = other.encryptedProfileData_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object userId_ = "";
+      /**
+       * <code>string userId = 1;</code>
+       */
+      public java.lang.String getUserId() {
+        java.lang.Object ref = userId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string userId = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUserIdBytes() {
+        java.lang.Object ref = userId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string userId = 1;</code>
+       */
+      public Builder setUserId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string userId = 1;</code>
+       */
+      public Builder clearUserId() {
+        
+        userId_ = getDefaultInstance().getUserId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string userId = 1;</code>
+       */
+      public Builder setUserIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object encryptedProfileData_ = "";
+      /**
+       * <code>string encryptedProfileData = 2;</code>
+       */
+      public java.lang.String getEncryptedProfileData() {
+        java.lang.Object ref = encryptedProfileData_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          encryptedProfileData_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string encryptedProfileData = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEncryptedProfileDataBytes() {
+        java.lang.Object ref = encryptedProfileData_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          encryptedProfileData_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string encryptedProfileData = 2;</code>
+       */
+      public Builder setEncryptedProfileData(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        encryptedProfileData_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string encryptedProfileData = 2;</code>
+       */
+      public Builder clearEncryptedProfileData() {
+        
+        encryptedProfileData_ = getDefaultInstance().getEncryptedProfileData();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string encryptedProfileData = 2;</code>
+       */
+      public Builder setEncryptedProfileDataBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        encryptedProfileData_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:main.UserProfile)
+    }
+
+    // @@protoc_insertion_point(class_scope:main.UserProfile)
+    private static final care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile();
+    }
+
+    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserProfile>
+        PARSER = new com.google.protobuf.AbstractParser<UserProfile>() {
+      public UserProfile parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UserProfile(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserProfile> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserProfile> getParserForType() {
+      return PARSER;
+    }
+
+    public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_main_Event_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_main_Event_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_main_UserProfile_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_main_UserProfile_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1675,13 +2360,16 @@ public final class BlockchainProtos {
       "tId\030\003 \001(\t\022\021\n\tpayloadId\030\004 \001(\t\022\023\n\013payloadH" +
       "ash\030\005 \001(\t\022\021\n\ttimestamp\030\006 \001(\004\022\"\n\teventTyp" +
       "e\030\007 \001(\0162\017.main.EventType\022&\n\013eventStatus\030" +
-      "\010 \001(\0162\021.main.EventStatus**\n\tFunctions\022\r\n" +
-      "\tGET_EVENT\020\000\022\016\n\nSAVE_EVENT\020\001*:\n\013EventSta" +
-      "tus\022\016\n\nSUCCESSFUL\020\000\022\n\n\006FAILED\020\001\022\017\n\013IN_PR" +
-      "OGRESS\020\002*=\n\tEventType\022\n\n\006CREATE\020\000\022\014\n\010RET" +
-      "RIEVE\020\001\022\n\n\006UPDATE\020\002\022\n\n\006DELETE\020\003B<\n\"care." +
-      "solve.blockchain.entity.protoB\020Blockchai" +
-      "nProtosZ\004mainb\006proto3"
+      "\010 \001(\0162\021.main.EventStatus\";\n\013UserProfile\022" +
+      "\016\n\006userId\030\001 \001(\t\022\034\n\024encryptedProfileData\030" +
+      "\002 \001(\t*W\n\tFunctions\022\r\n\tGET_EVENT\020\000\022\016\n\nSAV" +
+      "E_EVENT\020\001\022\024\n\020GET_USER_PROFILE\020\002\022\025\n\021SAVE_" +
+      "USER_PROFILE\020\003*:\n\013EventStatus\022\016\n\nSUCCESS" +
+      "FUL\020\000\022\n\n\006FAILED\020\001\022\017\n\013IN_PROGRESS\020\002*=\n\tEv" +
+      "entType\022\n\n\006CREATE\020\000\022\014\n\010RETRIEVE\020\001\022\n\n\006UPD" +
+      "ATE\020\002\022\n\n\006DELETE\020\003B<\n\"care.solve.blockcha" +
+      "in.entity.protoB\020BlockchainProtosZ\004mainb" +
+      "\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1701,6 +2389,12 @@ public final class BlockchainProtos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_main_Event_descriptor,
         new java.lang.String[] { "Id", "SourceId", "TargetId", "PayloadId", "PayloadHash", "Timestamp", "EventType", "EventStatus", });
+    internal_static_main_UserProfile_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_main_UserProfile_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_main_UserProfile_descriptor,
+        new java.lang.String[] { "UserId", "EncryptedProfileData", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

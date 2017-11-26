@@ -10,6 +10,8 @@ option go_package = "main";
 enum Functions {
     GET_EVENT = 0;
     SAVE_EVENT = 1;
+    GET_USER_PROFILE = 2;
+    SAVE_USER_PROFILE = 3;
 }
 
 enum EventStatus {
@@ -34,4 +36,9 @@ message Event {
     uint64 timestamp = 6;
     EventType eventType = 7;
     EventStatus eventStatus = 8;
+}
+
+message UserProfile {
+    string userId = 1;
+    string encryptedProfileData = 2;
 }

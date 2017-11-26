@@ -4,11 +4,12 @@ import care.solve.blockchain.entity.Event;
 import care.solve.blockchain.entity.EventStatus;
 import care.solve.blockchain.entity.EventType;
 import care.solve.blockchain.entity.proto.BlockchainProtos;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
+@Component
 public class EventToProtoTransformer implements ProtoTransformer<Event, BlockchainProtos.Event> {
 
     @Override
