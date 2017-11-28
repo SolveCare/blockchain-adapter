@@ -1689,14 +1689,18 @@ public final class BlockchainProtos {
         getUserIdBytes();
 
     /**
-     * <code>string encryptedProfileData = 2;</code>
+     * <code>.main.EncryptedData encryptedData = 2;</code>
      */
-    java.lang.String getEncryptedProfileData();
+    boolean hasEncryptedData();
     /**
-     * <code>string encryptedProfileData = 2;</code>
+     * <code>.main.EncryptedData encryptedData = 2;</code>
      */
-    com.google.protobuf.ByteString
-        getEncryptedProfileDataBytes();
+    care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData getEncryptedData();
+
+      /**
+       * <code>.main.EncryptedData encryptedData = 2;</code>
+       */
+      care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder getEncryptedDataOrBuilder();
   }
   /**
    * Protobuf type {@code main.UserProfile}
@@ -1712,7 +1716,6 @@ public final class BlockchainProtos {
     }
     private UserProfile() {
       userId_ = "";
-      encryptedProfileData_ = "";
     }
 
     @java.lang.Override
@@ -1753,9 +1756,16 @@ public final class BlockchainProtos {
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder subBuilder = null;
+                if (encryptedData_ != null) {
+                    subBuilder = encryptedData_.toBuilder();
+                }
+                encryptedData_ = input.readMessage(care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                    subBuilder.mergeFrom(encryptedData_);
+                    encryptedData_ = subBuilder.buildPartial();
+                }
 
-              encryptedProfileData_ = s;
               break;
             }
           }
@@ -1816,38 +1826,28 @@ public final class BlockchainProtos {
       }
     }
 
-    public static final int ENCRYPTEDPROFILEDATA_FIELD_NUMBER = 2;
-    private volatile java.lang.Object encryptedProfileData_;
-    /**
-     * <code>string encryptedProfileData = 2;</code>
-     */
-    public java.lang.String getEncryptedProfileData() {
-      java.lang.Object ref = encryptedProfileData_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        encryptedProfileData_ = s;
-        return s;
-      }
+      public static final int ENCRYPTEDDATA_FIELD_NUMBER = 2;
+      private care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData encryptedData_;
+
+      /**
+       * <code>.main.EncryptedData encryptedData = 2;</code>
+       */
+      public boolean hasEncryptedData() {
+          return encryptedData_ != null;
     }
-    /**
-     * <code>string encryptedProfileData = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getEncryptedProfileDataBytes() {
-      java.lang.Object ref = encryptedProfileData_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        encryptedProfileData_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
+
+      /**
+       * <code>.main.EncryptedData encryptedData = 2;</code>
+       */
+      public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData getEncryptedData() {
+          return encryptedData_ == null ? care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.getDefaultInstance() : encryptedData_;
       }
+
+      /**
+       * <code>.main.EncryptedData encryptedData = 2;</code>
+       */
+      public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder getEncryptedDataOrBuilder() {
+          return getEncryptedData();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1865,8 +1865,8 @@ public final class BlockchainProtos {
       if (!getUserIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
       }
-      if (!getEncryptedProfileDataBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, encryptedProfileData_);
+        if (encryptedData_ != null) {
+            output.writeMessage(2, getEncryptedData());
       }
       unknownFields.writeTo(output);
     }
@@ -1879,8 +1879,9 @@ public final class BlockchainProtos {
       if (!getUserIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
       }
-      if (!getEncryptedProfileDataBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, encryptedProfileData_);
+        if (encryptedData_ != null) {
+            size += com.google.protobuf.CodedOutputStream
+                    .computeMessageSize(2, getEncryptedData());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1900,8 +1901,11 @@ public final class BlockchainProtos {
       boolean result = true;
       result = result && getUserId()
           .equals(other.getUserId());
-      result = result && getEncryptedProfileData()
-          .equals(other.getEncryptedProfileData());
+        result = result && (hasEncryptedData() == other.hasEncryptedData());
+        if (hasEncryptedData()) {
+            result = result && getEncryptedData()
+                    .equals(other.getEncryptedData());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1915,8 +1919,10 @@ public final class BlockchainProtos {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + USERID_FIELD_NUMBER;
       hash = (53 * hash) + getUserId().hashCode();
-      hash = (37 * hash) + ENCRYPTEDPROFILEDATA_FIELD_NUMBER;
-      hash = (53 * hash) + getEncryptedProfileData().hashCode();
+        if (hasEncryptedData()) {
+            hash = (37 * hash) + ENCRYPTEDDATA_FIELD_NUMBER;
+            hash = (53 * hash) + getEncryptedData().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2046,10 +2052,14 @@ public final class BlockchainProtos {
       }
       public Builder clear() {
         super.clear();
-        userId_ = "";
+          userId_ = "";
 
-        encryptedProfileData_ = "";
-
+          if (encryptedDataBuilder_ == null) {
+              encryptedData_ = null;
+          } else {
+              encryptedData_ = null;
+              encryptedDataBuilder_ = null;
+        }
         return this;
       }
 
@@ -2073,7 +2083,11 @@ public final class BlockchainProtos {
       public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile buildPartial() {
         care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile result = new care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile(this);
         result.userId_ = userId_;
-        result.encryptedProfileData_ = encryptedProfileData_;
+          if (encryptedDataBuilder_ == null) {
+              result.encryptedData_ = encryptedData_;
+          } else {
+              result.encryptedData_ = encryptedDataBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -2119,9 +2133,8 @@ public final class BlockchainProtos {
           userId_ = other.userId_;
           onChanged();
         }
-        if (!other.getEncryptedProfileData().isEmpty()) {
-          encryptedProfileData_ = other.encryptedProfileData_;
-          onChanged();
+          if (other.hasEncryptedData()) {
+              mergeEncryptedData(other.getEncryptedData());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2219,71 +2232,838 @@ public final class BlockchainProtos {
         return this;
       }
 
-      private java.lang.Object encryptedProfileData_ = "";
-      /**
-       * <code>string encryptedProfileData = 2;</code>
-       */
-      public java.lang.String getEncryptedProfileData() {
-        java.lang.Object ref = encryptedProfileData_;
+        private care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData encryptedData_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder> encryptedDataBuilder_;
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public boolean hasEncryptedData() {
+            return encryptedDataBuilder_ != null || encryptedData_ != null;
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData getEncryptedData() {
+            if (encryptedDataBuilder_ == null) {
+                return encryptedData_ == null ? care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.getDefaultInstance() : encryptedData_;
+            } else {
+                return encryptedDataBuilder_.getMessage();
+            }
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public Builder setEncryptedData(care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData value) {
+            if (encryptedDataBuilder_ == null) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                encryptedData_ = value;
+                onChanged();
+            } else {
+                encryptedDataBuilder_.setMessage(value);
+            }
+
+            return this;
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public Builder setEncryptedData(
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder builderForValue) {
+            if (encryptedDataBuilder_ == null) {
+                encryptedData_ = builderForValue.build();
+                onChanged();
+            } else {
+                encryptedDataBuilder_.setMessage(builderForValue.build());
+            }
+
+            return this;
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public Builder mergeEncryptedData(care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData value) {
+            if (encryptedDataBuilder_ == null) {
+                if (encryptedData_ != null) {
+                    encryptedData_ =
+                            care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.newBuilder(encryptedData_).mergeFrom(value).buildPartial();
+                } else {
+                    encryptedData_ = value;
+                }
+                onChanged();
+            } else {
+                encryptedDataBuilder_.mergeFrom(value);
+            }
+
+            return this;
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public Builder clearEncryptedData() {
+            if (encryptedDataBuilder_ == null) {
+                encryptedData_ = null;
+                onChanged();
+            } else {
+                encryptedData_ = null;
+                encryptedDataBuilder_ = null;
+            }
+
+            return this;
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder getEncryptedDataBuilder() {
+
+            onChanged();
+            return getEncryptedDataFieldBuilder().getBuilder();
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder getEncryptedDataOrBuilder() {
+            if (encryptedDataBuilder_ != null) {
+                return encryptedDataBuilder_.getMessageOrBuilder();
+            } else {
+                return encryptedData_ == null ?
+                        care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.getDefaultInstance() : encryptedData_;
+            }
+        }
+
+        /**
+         * <code>.main.EncryptedData encryptedData = 2;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder>
+        getEncryptedDataFieldBuilder() {
+            if (encryptedDataBuilder_ == null) {
+                encryptedDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                        care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder>(
+                        getEncryptedData(),
+                        getParentForChildren(),
+                        isClean());
+                encryptedData_ = null;
+            }
+            return encryptedDataBuilder_;
+        }
+
+        public final Builder setUnknownFields(
+                final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+                final com.google.protobuf.UnknownFieldSet unknownFields) {
+            return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:main.UserProfile)
+    }
+
+      // @@protoc_insertion_point(class_scope:main.UserProfile)
+      private static final care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile DEFAULT_INSTANCE;
+
+      static {
+          DEFAULT_INSTANCE = new care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile();
+      }
+
+      public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstance() {
+          return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<UserProfile>
+              PARSER = new com.google.protobuf.AbstractParser<UserProfile>() {
+          public UserProfile parsePartialFrom(
+                  com.google.protobuf.CodedInputStream input,
+                  com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                  throws com.google.protobuf.InvalidProtocolBufferException {
+              return new UserProfile(input, extensionRegistry);
+          }
+      };
+
+      public static com.google.protobuf.Parser<UserProfile> parser() {
+          return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<UserProfile> getParserForType() {
+          return PARSER;
+      }
+
+      public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstanceForType() {
+          return DEFAULT_INSTANCE;
+      }
+
+  }
+
+    public interface EncryptedDataOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:main.EncryptedData)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>string encryptedPayload = 1;</code>
+         */
+        java.lang.String getEncryptedPayload();
+
+        /**
+         * <code>string encryptedPayload = 1;</code>
+         */
+        com.google.protobuf.ByteString
+        getEncryptedPayloadBytes();
+
+        /**
+         * <code>string cbcInitialVector = 2;</code>
+         */
+        java.lang.String getCbcInitialVector();
+
+        /**
+         * <code>string cbcInitialVector = 2;</code>
+         */
+        com.google.protobuf.ByteString
+        getCbcInitialVectorBytes();
+    }
+
+    /**
+     * Protobuf type {@code main.EncryptedData}
+     */
+    public static final class EncryptedData extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:main.EncryptedData)
+            EncryptedDataOrBuilder {
+        private static final long serialVersionUID = 0L;
+
+        // Use EncryptedData.newBuilder() to construct.
+        private EncryptedData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
+
+        private EncryptedData() {
+            encryptedPayload_ = "";
+            cbcInitialVector_ = "";
+        }
+
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
+
+        private EncryptedData(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new java.lang.NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        default: {
+                            if (!parseUnknownFieldProto3(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                        case 10: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            encryptedPayload_ = s;
+                            break;
+                        }
+                        case 18: {
+                            java.lang.String s = input.readStringRequireUtf8();
+
+                            cbcInitialVector_ = s;
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
+
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_EncryptedData_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_EncryptedData_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.class, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder.class);
+        }
+
+        public static final int ENCRYPTEDPAYLOAD_FIELD_NUMBER = 1;
+        private volatile java.lang.Object encryptedPayload_;
+
+        /**
+         * <code>string encryptedPayload = 1;</code>
+         */
+        public java.lang.String getEncryptedPayload() {
+            java.lang.Object ref = encryptedPayload_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                encryptedPayload_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <code>string encryptedPayload = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+        getEncryptedPayloadBytes() {
+            java.lang.Object ref = encryptedPayload_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                encryptedPayload_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        public static final int CBCINITIALVECTOR_FIELD_NUMBER = 2;
+        private volatile java.lang.Object cbcInitialVector_;
+
+        /**
+         * <code>string cbcInitialVector = 2;</code>
+         */
+        public java.lang.String getCbcInitialVector() {
+            java.lang.Object ref = cbcInitialVector_;
+            if (ref instanceof java.lang.String) {
+                return (java.lang.String) ref;
+            } else {
+                com.google.protobuf.ByteString bs =
+                        (com.google.protobuf.ByteString) ref;
+                java.lang.String s = bs.toStringUtf8();
+                cbcInitialVector_ = s;
+                return s;
+            }
+        }
+
+        /**
+         * <code>string cbcInitialVector = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+        getCbcInitialVectorBytes() {
+            java.lang.Object ref = cbcInitialVector_;
+            if (ref instanceof java.lang.String) {
+                com.google.protobuf.ByteString b =
+                        com.google.protobuf.ByteString.copyFromUtf8(
+                                (java.lang.String) ref);
+                cbcInitialVector_ = b;
+                return b;
+            } else {
+                return (com.google.protobuf.ByteString) ref;
+            }
+        }
+
+        private byte memoizedIsInitialized = -1;
+
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (!getEncryptedPayloadBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, encryptedPayload_);
+            }
+            if (!getCbcInitialVectorBytes().isEmpty()) {
+                com.google.protobuf.GeneratedMessageV3.writeString(output, 2, cbcInitialVector_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (!getEncryptedPayloadBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, encryptedPayload_);
+            }
+            if (!getCbcInitialVectorBytes().isEmpty()) {
+                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, cbcInitialVector_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @java.lang.Override
+        public boolean equals(final java.lang.Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData)) {
+                return super.equals(obj);
+            }
+            care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData other = (care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData) obj;
+
+            boolean result = true;
+            result = result && getEncryptedPayload()
+                    .equals(other.getEncryptedPayload());
+            result = result && getCbcInitialVector()
+                    .equals(other.getCbcInitialVector());
+            result = result && unknownFields.equals(other.unknownFields);
+            return result;
+        }
+
+        @java.lang.Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            hash = (37 * hash) + ENCRYPTEDPAYLOAD_FIELD_NUMBER;
+            hash = (53 * hash) + getEncryptedPayload().hashCode();
+            hash = (37 * hash) + CBCINITIALVECTOR_FIELD_NUMBER;
+            hash = (53 * hash) + getCbcInitialVector().hashCode();
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code main.EncryptedData}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:main.EncryptedData)
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedDataOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_EncryptedData_descriptor;
+            }
+
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_EncryptedData_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.class, care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.Builder.class);
+            }
+
+            // Construct using care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            public Builder clear() {
+                super.clear();
+                encryptedPayload_ = "";
+
+                cbcInitialVector_ = "";
+
+                return this;
+            }
+
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return care.solve.blockchain.entity.proto.BlockchainProtos.internal_static_main_EncryptedData_descriptor;
+            }
+
+            public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData getDefaultInstanceForType() {
+                return care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.getDefaultInstance();
+            }
+
+            public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData build() {
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData buildPartial() {
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData result = new care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData(this);
+                result.encryptedPayload_ = encryptedPayload_;
+                result.cbcInitialVector_ = cbcInitialVector_;
+                onBuilt();
+                return result;
+            }
+
+            public Builder clone() {
+                return (Builder) super.clone();
+            }
+
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.setField(field, value);
+            }
+
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return (Builder) super.clearField(field);
+            }
+
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return (Builder) super.clearOneof(oneof);
+            }
+
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, java.lang.Object value) {
+                return (Builder) super.setRepeatedField(field, index, value);
+            }
+
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    java.lang.Object value) {
+                return (Builder) super.addRepeatedField(field, value);
+            }
+
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData) {
+                    return mergeFrom((care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData other) {
+                if (other == care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData.getDefaultInstance())
+                    return this;
+                if (!other.getEncryptedPayload().isEmpty()) {
+                    encryptedPayload_ = other.encryptedPayload_;
+                    onChanged();
+                }
+                if (!other.getCbcInitialVector().isEmpty()) {
+                    cbcInitialVector_ = other.cbcInitialVector_;
+                    onChanged();
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            public final boolean isInitialized() {
+                return true;
+            }
+
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private java.lang.Object encryptedPayload_ = "";
+
+            /**
+             * <code>string encryptedPayload = 1;</code>
+             */
+            public java.lang.String getEncryptedPayload() {
+                java.lang.Object ref = encryptedPayload_;
         if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
+            com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          encryptedProfileData_ = s;
-          return s;
+            encryptedPayload_ = s;
+            return s;
         } else {
           return (java.lang.String) ref;
         }
-      }
-      /**
-       * <code>string encryptedProfileData = 2;</code>
+            }
+
+            /**
+             * <code>string encryptedPayload = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getEncryptedProfileDataBytes() {
-        java.lang.Object ref = encryptedProfileData_;
+          getEncryptedPayloadBytes() {
+        java.lang.Object ref = encryptedPayload_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          encryptedProfileData_ = b;
-          return b;
+            encryptedPayload_ = b;
+            return b;
         } else {
-          return (com.google.protobuf.ByteString) ref;
+            return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string encryptedProfileData = 2;</code>
+       * <code>string encryptedPayload = 1;</code>
        */
-      public Builder setEncryptedProfileData(
+      public Builder setEncryptedPayload(
           java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        encryptedProfileData_ = value;
-        onChanged();
+            throw new NullPointerException();
+        }
+
+          encryptedPayload_ = value;
+          onChanged();
+          return this;
+      }
+
+            /**
+             * <code>string encryptedPayload = 1;</code>
+       */
+      public Builder clearEncryptedPayload() {
+
+          encryptedPayload_ = getDefaultInstance().getEncryptedPayload();
+          onChanged();
         return this;
       }
       /**
-       * <code>string encryptedProfileData = 2;</code>
+       * <code>string encryptedPayload = 1;</code>
        */
-      public Builder clearEncryptedProfileData() {
-        
-        encryptedProfileData_ = getDefaultInstance().getEncryptedProfileData();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string encryptedProfileData = 2;</code>
-       */
-      public Builder setEncryptedProfileDataBytes(
+      public Builder setEncryptedPayloadBytes(
           com.google.protobuf.ByteString value) {
+          if (value == null) {
+              throw new NullPointerException();
+          }
+          checkByteStringIsUtf8(value);
+
+          encryptedPayload_ = value;
+          onChanged();
+          return this;
+      }
+
+            private java.lang.Object cbcInitialVector_ = "";
+
+            /**
+             * <code>string cbcInitialVector = 2;</code>
+             */
+            public java.lang.String getCbcInitialVector() {
+                java.lang.Object ref = cbcInitialVector_;
+                if (!(ref instanceof java.lang.String)) {
+                    com.google.protobuf.ByteString bs =
+                            (com.google.protobuf.ByteString) ref;
+                    java.lang.String s = bs.toStringUtf8();
+                    cbcInitialVector_ = s;
+                    return s;
+                } else {
+                    return (java.lang.String) ref;
+                }
+            }
+
+            /**
+             * <code>string cbcInitialVector = 2;</code>
+             */
+            public com.google.protobuf.ByteString
+            getCbcInitialVectorBytes() {
+                java.lang.Object ref = cbcInitialVector_;
+                if (ref instanceof String) {
+                    com.google.protobuf.ByteString b =
+                            com.google.protobuf.ByteString.copyFromUtf8(
+                                    (java.lang.String) ref);
+                    cbcInitialVector_ = b;
+                    return b;
+                } else {
+                    return (com.google.protobuf.ByteString) ref;
+                }
+            }
+
+            /**
+             * <code>string cbcInitialVector = 2;</code>
+             */
+            public Builder setCbcInitialVector(
+                    java.lang.String value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+
+                cbcInitialVector_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string cbcInitialVector = 2;</code>
+             */
+            public Builder clearCbcInitialVector() {
+
+                cbcInitialVector_ = getDefaultInstance().getCbcInitialVector();
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>string cbcInitialVector = 2;</code>
+             */
+            public Builder setCbcInitialVectorBytes(
+                    com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        encryptedProfileData_ = value;
+        cbcInitialVector_ = value;
         onChanged();
         return this;
       }
@@ -2292,45 +3072,46 @@ public final class BlockchainProtos {
         return super.setUnknownFieldsProto3(unknownFields);
       }
 
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:main.UserProfile)
+            // @@protoc_insertion_point(builder_scope:main.EncryptedData)
+        }
+
+        // @@protoc_insertion_point(class_scope:main.EncryptedData)
+        private static final care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData();
+        }
+
+        public static care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData getDefaultInstance() {
+            return DEFAULT_INSTANCE;
     }
 
-    // @@protoc_insertion_point(class_scope:main.UserProfile)
-    private static final care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile();
-    }
-
-    public static care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<UserProfile>
-        PARSER = new com.google.protobuf.AbstractParser<UserProfile>() {
-      public UserProfile parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UserProfile(input, extensionRegistry);
+    private static final com.google.protobuf.Parser<EncryptedData>
+        PARSER = new com.google.protobuf.AbstractParser<EncryptedData>() {
+      public EncryptedData parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EncryptedData(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<UserProfile> parser() {
+    public static com.google.protobuf.Parser<EncryptedData> parser() {
+        return PARSER;
+    }
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<EncryptedData> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public com.google.protobuf.Parser<UserProfile> getParserForType() {
-      return PARSER;
-    }
-
-    public care.solve.blockchain.entity.proto.BlockchainProtos.UserProfile getDefaultInstanceForType() {
+    public care.solve.blockchain.entity.proto.BlockchainProtos.EncryptedData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2342,10 +3123,15 @@ public final class BlockchainProtos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_main_Event_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_main_UserProfile_descriptor;
+          internal_static_main_UserProfile_descriptor;
+    private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_main_UserProfile_fieldAccessorTable;
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_main_EncryptedData_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_main_UserProfile_fieldAccessorTable;
+      internal_static_main_EncryptedData_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2358,18 +3144,20 @@ public final class BlockchainProtos {
       "\n\027blockchain-protos.proto\022\004main\"\276\001\n\005Even" +
       "t\022\n\n\002id\030\001 \001(\t\022\020\n\010sourceId\030\002 \001(\t\022\020\n\010targe" +
       "tId\030\003 \001(\t\022\021\n\tpayloadId\030\004 \001(\t\022\023\n\013payloadH" +
-      "ash\030\005 \001(\t\022\021\n\ttimestamp\030\006 \001(\004\022\"\n\teventTyp" +
-      "e\030\007 \001(\0162\017.main.EventType\022&\n\013eventStatus\030" +
-      "\010 \001(\0162\021.main.EventStatus\";\n\013UserProfile\022" +
-      "\016\n\006userId\030\001 \001(\t\022\034\n\024encryptedProfileData\030" +
-      "\002 \001(\t*W\n\tFunctions\022\r\n\tGET_EVENT\020\000\022\016\n\nSAV" +
-      "E_EVENT\020\001\022\024\n\020GET_USER_PROFILE\020\002\022\025\n\021SAVE_" +
-      "USER_PROFILE\020\003*:\n\013EventStatus\022\016\n\nSUCCESS" +
-      "FUL\020\000\022\n\n\006FAILED\020\001\022\017\n\013IN_PROGRESS\020\002*=\n\tEv" +
-      "entType\022\n\n\006CREATE\020\000\022\014\n\010RETRIEVE\020\001\022\n\n\006UPD" +
-      "ATE\020\002\022\n\n\006DELETE\020\003B<\n\"care.solve.blockcha" +
-      "in.entity.protoB\020BlockchainProtosZ\004mainb" +
-      "\006proto3"
+              "ash\030\005 \001(\t\022\021\n\ttimestamp\030\006 \001(\004\022\"\n\teventTyp" +
+              "e\030\007 \001(\0162\017.main.EventType\022&\n\013eventStatus\030" +
+              "\010 \001(\0162\021.main.EventStatus\"I\n\013UserProfile\022" +
+              "\016\n\006userId\030\001 \001(\t\022*\n\rencryptedData\030\002 \001(\0132\023" +
+              ".main.EncryptedData\"C\n\rEncryptedData\022\030\n\020" +
+              "encryptedPayload\030\001 \001(\t\022\030\n\020cbcInitialVect" +
+              "or\030\002 \001(\t*W\n\tFunctions\022\r\n\tGET_EVENT\020\000\022\016\n\n" +
+              "SAVE_EVENT\020\001\022\024\n\020GET_USER_PROFILE\020\002\022\025\n\021SA" +
+              "VE_USER_PROFILE\020\003*:\n\013EventStatus\022\016\n\nSUCC" +
+              "ESSFUL\020\000\022\n\n\006FAILED\020\001\022\017\n\013IN_PROGRESS\020\002*=\n" +
+              "\tEventType\022\n\n\006CREATE\020\000\022\014\n\010RETRIEVE\020\001\022\n\n\006" +
+      "UPDATE\020\002\022\n\n\006DELETE\020\003B<\n\"care.solve.block" +
+      "chain.entity.protoB\020BlockchainProtosZ\004ma" +
+      "inb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2391,10 +3179,16 @@ public final class BlockchainProtos {
         new java.lang.String[] { "Id", "SourceId", "TargetId", "PayloadId", "PayloadHash", "Timestamp", "EventType", "EventStatus", });
     internal_static_main_UserProfile_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_main_UserProfile_fieldAccessorTable = new
+      internal_static_main_UserProfile_fieldAccessorTable = new
+              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+              internal_static_main_UserProfile_descriptor,
+              new java.lang.String[]{"UserId", "EncryptedData",});
+      internal_static_main_EncryptedData_descriptor =
+              getDescriptor().getMessageTypes().get(2);
+      internal_static_main_EncryptedData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_main_UserProfile_descriptor,
-        new java.lang.String[] { "UserId", "EncryptedProfileData", });
+        internal_static_main_EncryptedData_descriptor,
+        new java.lang.String[] { "EncryptedPayload", "CbcInitialVector", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

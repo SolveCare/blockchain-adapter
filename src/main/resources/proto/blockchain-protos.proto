@@ -40,5 +40,10 @@ message Event {
 
 message UserProfile {
     string userId = 1;
-    string encryptedProfileData = 2;
+    EncryptedData encryptedData = 2;
+}
+
+message EncryptedData {
+    string encryptedPayload = 1;
+    string cbcInitialVector = 2;
 }
