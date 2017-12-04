@@ -12,11 +12,9 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   - Name: Orderer
     Domain: health.com
-    # ---------------------------------------------------------------------------
-    # "Specs" - See PeerOrgs below for complete description
-    # ---------------------------------------------------------------------------
-    Specs:
-      - Hostname: orderer
+    Template:
+      Count: 2
+
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
@@ -24,8 +22,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Clinic
-    Domain: clinic.health.com
+  - Name: Individual
+    Domain: individual.health.com
 
     # ---------------------------------------------------------------------------
     # "Specs"
@@ -61,7 +59,7 @@ PeerOrgs:
     # name collisions
     # ---------------------------------------------------------------------------
     Template:
-      Count: 3
+      Count: 1
       # Start: 5
       # Hostname: {{.Prefix}}{{.Index}} # default
     # ---------------------------------------------------------------------------
@@ -69,5 +67,19 @@ PeerOrgs:
     # ---------------------------------------------------------------------------
     # Count: The number of user accounts _in addition_ to Admin
     # ---------------------------------------------------------------------------
+    Users:
+      Count: 1
+
+  - Name: ServiceProvider
+    Domain: serviceprovider.health.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+
+  - Name: Insurer
+    Domain: insurer.health.com
+    Template:
+      Count: 1
     Users:
       Count: 1

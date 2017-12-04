@@ -14,7 +14,7 @@
 ################################################################################
 Profiles:
 
-    OneOrgOrdererGenesis:
+    ThreeOrgOrdererGenesis:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
@@ -22,13 +22,30 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Clinic
-    OneOrgChannel:
+                    - *Individual
+                    - *ServiceProvider
+                    - *Insurer
+            PrivateConsortium:
+                Organizations:
+                    - *Individual
+                    - *ServiceProvider
+
+    GeneralChannel:
         Consortium: SampleConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Clinic
+                - *Individual
+                - *ServiceProvider
+                - *Insurer
+
+    PrivateChannel:
+        Consortium: PrivateConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Individual
+                - *ServiceProvider
 
 ################################################################################
 #
@@ -53,25 +70,55 @@ Organizations:
         # MSPDir is the filesystem path which contains the MSP configuration
         MSPDir: crypto-config/ordererOrganizations/health.com/msp
 
-    - &Clinic
+    - &Individual
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: ClinicMSP
+        Name: IndividualMSP
 
         # ID to load the MSP definition as
-        ID: ClinicMSP
+        ID: IndividualMSP
 
-        MSPDir: crypto-config/peerOrganizations/clinic.health.com/msp
+        MSPDir: crypto-config/peerOrganizations/individual.health.com/msp
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.clinic.health.com
+            - Host: peer0.individual.health.com
               Port: 7051
-            - Host: peer1.clinic.health.com
+
+    - &ServiceProvider
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: ServiceProviderMSP
+
+        # ID to load the MSP definition as
+        ID: ServiceProviderMSP
+
+        MSPDir: crypto-config/peerOrganizations/serviceprovider.health.com/msp
+
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.serviceprovider.health.com
               Port: 7051
-            - Host: peer2.clinic.health.com
+
+    - &Insurer
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: InsurerMSP
+
+        # ID to load the MSP definition as
+        ID: InsurerMSP
+
+        MSPDir: crypto-config/peerOrganizations/insurer.health.com/msp
+
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.insurer.health.com
               Port: 7051
 
 ################################################################################

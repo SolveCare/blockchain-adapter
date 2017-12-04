@@ -3,12 +3,11 @@ package care.solve.blockchain.controller;
 import care.solve.blockchain.entity.Event;
 import care.solve.blockchain.entity.proto.BlockchainProtos;
 import care.solve.blockchain.transformer.EventToProtoTransformer;
+import care.solve.fabric.config.HFProperties;
 import care.solve.fabric.service.TransactionService;
 import com.google.common.collect.ImmutableMap;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.TextFormat;
-import org.hyperledger.fabric.sdk.BlockEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,18 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/events")
 public class EventController {
 
+    private HFProperties hfProperties;
     private TransactionService transactionService;
     private EventToProtoTransformer eventToProtoTransformer;
 
     @Autowired
-    public EventController(TransactionService transactionService, EventToProtoTransformer eventToProtoTransformer) {
+    public EventController(HFProperties hfProperties, TransactionService transactionService, EventToProtoTransformer eventToProtoTransformer) {
+        this.hfProperties = hfProperties;
         this.transactionService = transactionService;
         this.eventToProtoTransformer = eventToProtoTransformer;
     }
@@ -42,6 +42,7 @@ public class EventController {
         BlockchainProtos.Event eventProto = eventToProtoTransformer.transformToProto(event);
         String printToString = TextFormat.printToString(eventProto);
         byte[] responseBytes = transactionService.sendInvokeTransaction(
+                hfProperties.getGeneralChannel().getName(),
                 BlockchainProtos.Functions.SAVE_EVENT.name(),
                 new String[]{printToString}
         );
@@ -54,6 +55,7 @@ public class EventController {
     @GetMapping("{eventId}")
     public Event getEvent(@PathVariable String eventId) throws InvalidProtocolBufferException {
         byte[] responseBytes = transactionService.sendQueryTransaction(
+                hfProperties.getGeneralChannel().getName(),
                 BlockchainProtos.Functions.GET_EVENT.name(),
                 new String[]{eventId}
         );
