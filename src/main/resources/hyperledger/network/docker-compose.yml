@@ -51,8 +51,8 @@ services:
     networks:
       - basic
 
-  orderer.health.com:
-    container_name: orderer.health.com
+  orderer0.health.com:
+    container_name: orderer0.health.com
     image: hyperledger/fabric-orderer${IMAGE_TAG_FABRIC}
     environment:
       - ORDERER_GENERAL_LOGLEVEL=debug
@@ -72,9 +72,36 @@ services:
     command: orderer
     volumes:
       - ./channel-artifacts:/etc/hyperledger/configtx:ro
-      - ./crypto-config/ordererOrganizations/health.com/orderers/orderer.health.com/:/etc/hyperledger/msp/orderer:ro
+      - ./crypto-config/ordererOrganizations/health.com/orderers/orderer0.health.com/:/etc/hyperledger/msp/orderer:ro
     ports:
       - 7050:7050
+    networks:
+      - basic
+
+  orderer1.health.com:
+    container_name: orderer1.health.com
+    image: hyperledger/fabric-orderer${IMAGE_TAG_FABRIC}
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=${ORG_HYPERLEDGER_FABRIC_SDKTEST_INTEGRATIONTESTS_TLS}
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt]
+#      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt, /etc/hyperledger/msp/peer0Org1/tls/ca.crt, /etc/hyperledger/msp/peer1Org1/tls/ca.crt, /etc/hyperledger/msp/peer0Org2/tls/ca.crt, /etc/hyperledger/msp/peer1Org2/tls/ca.crt]
+      - GRPC_TRACE=all=true,
+      - GRPC_VERBOSITY=debug
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./channel-artifacts:/etc/hyperledger/configtx:ro
+      - ./crypto-config/ordererOrganizations/health.com/orderers/orderer1.health.com/:/etc/hyperledger/msp/orderer:ro
+    ports:
+      - 8050:7050
     networks:
       - basic
 
@@ -94,12 +121,13 @@ services:
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/individual.health.com/peers/peer0.individual.health.com/:/etc/hyperledger/msp/peer:ro
-      - ./config:/etc/hyperledger/configtx:ro
+      - ./channel-artifacts:/etc/hyperledger/configtx:ro
     ports:
       - 7051:7051
       - 7053:7053
     depends_on:
-      - orderer.health.com
+      - orderer0.health.com
+      - orderer1.health.com
       - couchdb-individual
     networks:
       - basic
@@ -120,12 +148,13 @@ services:
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/insurer.health.com/peers/peer0.insurer.health.com/:/etc/hyperledger/msp/peer:ro
-      - ./config:/etc/hyperledger/configtx:ro
+      - ./channel-artifacts:/etc/hyperledger/configtx:ro
     ports:
       - 8051:7051
       - 8053:7053
     depends_on:
-      - orderer.health.com
+      - orderer0.health.com
+      - orderer1.health.com
       - couchdb-insurer
     networks:
       - basic
@@ -146,12 +175,13 @@ services:
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/serviceprovider.health.com/peers/peer0.serviceprovider.health.com/:/etc/hyperledger/msp/peer:ro
-      - ./config:/etc/hyperledger/configtx:ro
+      - ./channel-artifacts:/etc/hyperledger/configtx:ro
     ports:
       - 9051:7051
       - 9053:7053
     depends_on:
-      - orderer.health.com
+      - orderer0.health.com
+      - orderer1.health.com
       - couchdb-serviceprovider
     networks:
       - basic
@@ -190,18 +220,20 @@ services:
       - CORE_LOGGING_LEVEL=DEBUG
       - CORE_PEER_ID=cli
       - CORE_PEER_ADDRESS=peer0.individual.health.com:7051
-      - CORE_PEER_LOCALMSPID=clinicMSP
+      - CORE_PEER_LOCALMSPID=IndividualMSP
       - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/individual.health.com/users/Admin@individual.health.com/msp
       - CORE_CHAINCODE_KEEPALIVE=10
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
       - /var/run/:/host/var/run/
-      - ./../chaincode/:/opt/gopath/src/github.com/
+#      - ./../chaincode/:/opt/gopath/src/github.com/
       - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+      - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     networks:
       - basic
     depends_on:
-      - orderer.health.com
+      - orderer0.health.com
+      - orderer1.health.com
       - peer0.individual.health.com
       - couchdb-individual
