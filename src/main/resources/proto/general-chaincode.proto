@@ -1,9 +1,8 @@
-
 syntax = "proto3";
 package main;
 
 option java_package = "care.solve.blockchain.entity.proto";
-option java_outer_classname = "BlockchainProtos";
+option java_outer_classname = "GeneralChaincodeProto";
 
 option go_package = "main";
 

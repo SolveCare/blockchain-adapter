@@ -1,7 +1,7 @@
 package care.solve.blockchain.controller;
 
 import care.solve.blockchain.entity.Event;
-import care.solve.blockchain.entity.proto.BlockchainProtos;
+import care.solve.blockchain.entity.proto.GeneralChaincodeProto;
 import care.solve.blockchain.transformer.EventToProtoTransformer;
 import care.solve.fabric.config.HFProperties;
 import care.solve.fabric.service.TransactionService;
@@ -10,12 +10,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.TextFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.UUID;
@@ -39,11 +34,11 @@ public class EventController {
     public ResponseEntity<Map<String, String>> publishEvent(@RequestBody Event event) {
         event.setId(UUID.randomUUID().toString());
 
-        BlockchainProtos.Event eventProto = eventToProtoTransformer.transformToProto(event);
+        GeneralChaincodeProto.Event eventProto = eventToProtoTransformer.transformToProto(event);
         String printToString = TextFormat.printToString(eventProto);
         byte[] responseBytes = transactionService.sendInvokeTransaction(
                 hfProperties.getGeneralChannel().getName(),
-                BlockchainProtos.Functions.SAVE_EVENT.name(),
+                GeneralChaincodeProto.Functions.SAVE_EVENT.name(),
                 new String[]{printToString}
         );
 
@@ -56,11 +51,11 @@ public class EventController {
     public Event getEvent(@PathVariable String eventId) throws InvalidProtocolBufferException {
         byte[] responseBytes = transactionService.sendQueryTransaction(
                 hfProperties.getGeneralChannel().getName(),
-                BlockchainProtos.Functions.GET_EVENT.name(),
+                GeneralChaincodeProto.Functions.GET_EVENT.name(),
                 new String[]{eventId}
         );
 
-        BlockchainProtos.Event eventProto = BlockchainProtos.Event.parseFrom(responseBytes);
+        GeneralChaincodeProto.Event eventProto = GeneralChaincodeProto.Event.parseFrom(responseBytes);
         return eventToProtoTransformer.transformFromProto(eventProto);
     }
 }
