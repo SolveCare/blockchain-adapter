@@ -1,14 +1,15 @@
 package care.solve.blockchain.controller;
 
-import care.solve.blockchain.entity.Event;
+import care.solve.blockchain.conf.KafkaProperties;
 import care.solve.blockchain.entity.proto.BlockchainProtos;
+import care.solve.blockchain.service.KafkaSender;
 import care.solve.blockchain.transformer.EventToProtoTransformer;
+import care.solve.event.Event;
 import care.solve.fabric.service.TransactionService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.TextFormat;
-import org.hyperledger.fabric.sdk.BlockEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/events")
@@ -28,26 +27,31 @@ public class EventController {
 
     private TransactionService transactionService;
     private EventToProtoTransformer eventToProtoTransformer;
+    private KafkaSender kafkaSender;
+    private KafkaProperties kafkaProperties;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    public EventController(TransactionService transactionService, EventToProtoTransformer eventToProtoTransformer) {
+    public EventController(TransactionService transactionService, EventToProtoTransformer eventToProtoTransformer, KafkaSender kafkaSender, KafkaProperties kafkaProperties, ObjectMapper objectMapper) {
         this.transactionService = transactionService;
         this.eventToProtoTransformer = eventToProtoTransformer;
+        this.kafkaSender = kafkaSender;
+        this.kafkaProperties = kafkaProperties;
+        this.objectMapper = objectMapper;
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> publishEvent(@RequestBody Event event) {
-        event.setId(UUID.randomUUID().toString());
+    public ResponseEntity<Map<String, String>> publishEvent(@RequestBody Event event) throws JsonProcessingException {
 
-        BlockchainProtos.Event eventProto = eventToProtoTransformer.transformToProto(event);
-        String printToString = TextFormat.printToString(eventProto);
+        String eventJson = objectMapper.writeValueAsString(event);
+
         byte[] responseBytes = transactionService.sendInvokeTransaction(
                 BlockchainProtos.Functions.SAVE_EVENT.name(),
-                new String[]{printToString}
+                new String[]{eventJson}
         );
 
         String respMsg = new String(responseBytes);
-
+        kafkaSender.sendEvent(kafkaProperties.getCommandsTopic(), eventJson);
         return ResponseEntity.ok(ImmutableMap.of("ResponseMessage", respMsg));
     }
 
