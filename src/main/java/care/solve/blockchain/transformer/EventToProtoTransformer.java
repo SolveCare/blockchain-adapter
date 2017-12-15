@@ -1,46 +1,51 @@
 package care.solve.blockchain.transformer;
 
-import care.solve.blockchain.entity.Event;
-import care.solve.blockchain.entity.EventStatus;
-import care.solve.blockchain.entity.EventType;
 import care.solve.blockchain.entity.proto.BlockchainProtos;
+import care.solve.event.DefaultEvent;
+import care.solve.event.Event;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Component
 public class EventToProtoTransformer implements ProtoTransformer<Event, BlockchainProtos.Event> {
+    private static final Logger logger = LoggerFactory.getLogger(EventToProtoTransformer.class);
+
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    public EventToProtoTransformer(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public BlockchainProtos.Event transformToProto(Event event) {
         BlockchainProtos.Event.Builder builder = BlockchainProtos.Event.newBuilder();
 
         builder.setId(event.getId());
-        builder.setSourceId(event.getSourceId());
-        builder.setTargetId(event.getTargetId());
         builder.setTimestamp(event.getTimestamp());
+        builder.setType(event.getType());
+        builder.setSource(event.getSource());
 
-        Optional.ofNullable(event.getPayloadId()).ifPresent(builder::setPayloadId);
-        Optional.ofNullable(event.getPayloadHash()).ifPresent(builder::setPayloadHash);
-
-        builder.setEventType(BlockchainProtos.EventType.valueOf(event.getEventType().name()));
-        builder.setEventStatus(BlockchainProtos.EventStatus.valueOf(event.getEventStatus().name()));
+        try {
+            builder.setData(objectMapper.writeValueAsString(event));
+        } catch (JsonProcessingException e) {
+            logger.error(String.format("Error converting event: [%s] to JSON. Cause: [%s]", event, e.getMessage()));
+        }
 
         return builder.build();
     }
 
     @Override
     public Event transformFromProto(BlockchainProtos.Event proto) {
-        return Event.builder()
+        return DefaultEvent.builder()
                 .id(proto.getId())
-                .sourceId(proto.getSourceId())
-                .targetId(proto.getTargetId())
-                .payloadId(proto.getPayloadId())
-                .payloadHash(proto.getPayloadHash())
                 .timestamp(proto.getTimestamp())
-                .eventType(EventType.valueOf(proto.getEventType().name()))
-                .eventStatus(EventStatus.valueOf(proto.getEventStatus().name()))
+                .type(proto.getType())
+                .source(proto.getSource())
                 .build();
     }
 }

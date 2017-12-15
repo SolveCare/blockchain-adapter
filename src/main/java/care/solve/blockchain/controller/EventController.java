@@ -1,14 +1,9 @@
 package care.solve.blockchain.controller;
 
-import care.solve.blockchain.entity.Event;
-import care.solve.blockchain.entity.proto.BlockchainProtos;
-import care.solve.blockchain.transformer.EventToProtoTransformer;
-import care.solve.fabric.service.TransactionService;
+import care.solve.blockchain.service.LedgerService;
+import care.solve.event.Event;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.ImmutableMap;
-import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.TextFormat;
-import org.hyperledger.fabric.sdk.BlockEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,47 +13,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/events")
 public class EventController {
 
-    private TransactionService transactionService;
-    private EventToProtoTransformer eventToProtoTransformer;
+    private LedgerService ledgerService;
 
     @Autowired
-    public EventController(TransactionService transactionService, EventToProtoTransformer eventToProtoTransformer) {
-        this.transactionService = transactionService;
-        this.eventToProtoTransformer = eventToProtoTransformer;
+    public EventController(LedgerService ledgerService) {
+        this.ledgerService = ledgerService;
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> publishEvent(@RequestBody Event event) {
-        event.setId(UUID.randomUUID().toString());
-
-        BlockchainProtos.Event eventProto = eventToProtoTransformer.transformToProto(event);
-        String printToString = TextFormat.printToString(eventProto);
-        byte[] responseBytes = transactionService.sendInvokeTransaction(
-                BlockchainProtos.Functions.SAVE_EVENT.name(),
-                new String[]{printToString}
-        );
+    public ResponseEntity<Map<String, String>> publishEvent(@RequestBody Event event) throws JsonProcessingException {
+        byte[] responseBytes = ledgerService.saveEvent(event);
 
         String respMsg = new String(responseBytes);
-
         return ResponseEntity.ok(ImmutableMap.of("ResponseMessage", respMsg));
     }
 
     @GetMapping("{eventId}")
-    public Event getEvent(@PathVariable String eventId) throws InvalidProtocolBufferException {
-        byte[] responseBytes = transactionService.sendQueryTransaction(
-                BlockchainProtos.Functions.GET_EVENT.name(),
-                new String[]{eventId}
-        );
-
-        BlockchainProtos.Event eventProto = BlockchainProtos.Event.parseFrom(responseBytes);
-        return eventToProtoTransformer.transformFromProto(eventProto);
+    public Event getEvent(@PathVariable String eventId) throws IOException {
+        return ledgerService.getEvent(eventId);
     }
 }
