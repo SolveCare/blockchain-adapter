@@ -18,32 +18,38 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.8.RELEASE</version>
+    <version>2.0.0.M7</version>
     <relativePath/>
   </parent>
 
-  <!--<repositories>-->
-    <!--<repository>-->
-      <!--<id>spring-milestones</id>-->
-      <!--<name>Spring Milestones</name>-->
-      <!--<url>https://repo.spring.io/libs-milestone</url>-->
-      <!--<snapshots>-->
-        <!--<enabled>false</enabled>-->
-      <!--</snapshots>-->
-    <!--</repository>-->
-  <!--</repositories>-->
-  <!--<pluginRepositories>-->
-    <!--<pluginRepository>-->
-      <!--<id>Spring-Milestones</id>-->
-      <!--<name>spring-milestones</name>-->
-      <!--<url>http://repo.spring.io/milestone/</url>-->
-      <!--<snapshots>-->
-        <!--<enabled>false</enabled>-->
-      <!--</snapshots>-->
-    <!--</pluginRepository>-->
-  <!--</pluginRepositories>-->
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/libs-milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>Spring-Milestones</id>
+      <name>spring-milestones</name>
+      <url>http://repo.spring.io/milestone/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
   <dependencies>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty</artifactId>
+      <version>1.6.0</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>

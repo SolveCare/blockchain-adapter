@@ -10,4 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaProperties {
 
     private String commandsTopic;
+    private String responsesTopic;
 }
