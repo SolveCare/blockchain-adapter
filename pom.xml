@@ -117,7 +117,7 @@
         <configuration>
           <images>
             <image>
-              <name>${project.name}</name>
+              <name>192.168.148.210/${project.name}</name>
               <build>
                 <from>anapsix/alpine-java:8_jdk</from>
 

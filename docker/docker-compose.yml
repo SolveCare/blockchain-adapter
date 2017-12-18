@@ -17,6 +17,6 @@ services:
     networks:
       - net_basic
     volumes:
-      - ../src/main/resources/hyperledger/network/:/config/
+      - /Users/nikita/ukrsoft/care-hyperledger-network:/mnt/fabric
     environment:
       - _JAVA_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
