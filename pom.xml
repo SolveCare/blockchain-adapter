@@ -85,6 +85,13 @@
     </dependency>
   </dependencies>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>9d4073b9c2d0-snapshots</name>
+      <url>http://192.168.148.192/artifactory/libs-snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <build>
     <plugins>
